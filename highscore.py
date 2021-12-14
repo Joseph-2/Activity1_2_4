@@ -4,7 +4,7 @@
 # set the levels of scoring
 
 # load leaderboard from file
-def score_evaluation(file_name,player_score,turtle_object):
+def score_evaluation(file_name,player_score,turtle_object,screen):
   player_score = str(player_score)
   font_setup = ("Arial", 15, "normal")
   highscore_file = open(file_name, "r")  # need to create the file ahead of time in same folder
@@ -12,6 +12,7 @@ def score_evaluation(file_name,player_score,turtle_object):
   for line in highscore_file:
     high_score = line
   if int(player_score) > int(high_score):
+    screen.bgpic("victory.gif")
     turtle_object.clear()
     turtle_object.write("Congratulations! You beat the high score!", font=font_setup)
     turtle_object.penup()
@@ -21,6 +22,7 @@ def score_evaluation(file_name,player_score,turtle_object):
     highscore_file = open(file_name, "w")
     highscore_file.write(player_score)
   else:
+    screen.bgpic("unhappy-child.gif")
     turtle_object.clear()
     turtle_object.write("Sorry, you didn't beat the high score. Maybe next time!", font=font_setup)
     turtle_object.penup()
