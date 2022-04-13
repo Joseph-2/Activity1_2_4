@@ -1,8 +1,3 @@
-#   leaderboard.py
-# The leaderboard module to be used in a122 solution.
-
-# set the levels of scoring
-
 # load leaderboard from file
 def score_evaluation(file_name,player_score,turtle_object,screen):
   player_score = str(player_score)

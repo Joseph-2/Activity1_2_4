@@ -1,49 +1,48 @@
 # Imports/Classes
 import turtle as trtl
 import random as rand
-import highscore as hs
 
+from sqlalchemy import false
+import highscore as hs
+import tkinter as tk
 
 class Er(Exception):
     pass
 
 # Variables - - - - - - - - - - - - - - - - - - -
+diff_not_chosen = True
+fruit_dis = 0
+fruit_speed = 0
+
+def difficulty_chooser(distance,speed):
+  global fruit_dis,fruit_speed,diff_not_chosen
+  fruit_dis = distance
+  fruit_speed = speed
+  diff_not_chosen = False
 
 
-while True:
-    try:
-        difficulty = int(
-            input("Choose between difficulty 1(easy), 2(normal), or 3(hard): "))
+root = tk.Tk()
+difficulty = tk.Frame(root)
+difficulty.pack(fill='both')
 
-        if difficulty == 1:
-            fruit_dis = 5
-            fruit_speed = "slow"
+diff1_button = tk.Button(difficulty, text='Difficulty 1', fg='green',bg='antique white',command=difficulty_chooser(10,2),
+font=('Arial',50))
+diff1_button.pack(side='left')
 
-        elif difficulty == 2:
-            fruit_dis = 20
-            fruit_speed = "normal"
+diff2_button = tk.Button(difficulty, text='Difficulty 2', fg='yellow',bg='antique white',command=difficulty_chooser(20,7))
+diff2_button.pack(side='top')
 
-        elif difficulty == 3:
-            fruit_dis = 30
-            fruit_speed = 0
+diff3_button = tk.Button(difficulty, text='Difficulty 3', fg='red',bg='antique white',command=difficulty_chooser(30,0))
+diff3_button.pack(side='right')
 
-        else:
-            raise Er(Exception)
-        break
-
-    except Er:
-        print("please only choose between said aforementioned difficulties")
-
-    except ValueError:
-        print("please only choose between said aforementioned difficulties")
-
+    
 fruitz = ["apple.gif", "cherry.gif", "orange.gif", "pear.gif", "banana.gif"]
 
 score = 0
 
-font_setup = ("Arial", 15, "normal")
+font_setup = ("Press Start 2P", 15, "normal")
 
-timer = 5
+timer = 30
 
 counter_interval = 1000  # 1000 represents 1 second
 
@@ -138,7 +137,6 @@ def fruitloop():
         # all done, hide any fruit
         active_fruit.hideturtle()
         # handle high score/leaderboards
-        score_writer.color("black")
         manage_highscore()
         # don't schedule another tick
         return
